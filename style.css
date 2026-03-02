@@ -39,24 +39,18 @@ body {
     object-fit: contain !important;
 }
 
+/* --- DASHBOARD SPECIFIC STYLES --- */
+
 /* 3. DASHBOARD DESIGN */
 .dashboard-page {
-    /* This matches the login page exactly */
+    /* Matches the login page gradient exactly */
     background: linear-gradient(135deg, var(--oltc-green) 0%, var(--oltc-yellow) 100%) !important;
     min-height: 100vh;
     margin: 0;
     background-attachment: fixed; /* Keeps the gradient still while you scroll */
 }
 
-.navbar {
-    background: var(--oltc-green);
-    color: white;
-    padding: 1rem 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
+/* Base dashboard container and header styles */
 .container {
     max-width: 1000px;
     margin: 50px auto;
@@ -64,15 +58,26 @@ body {
     text-align: center;
 }
 
-/* The Interactive Grid */
+.dashboard-header h1 {
+    font-size: 2.5rem;
+    color: var(--oltc-dark);
+    margin-bottom: 10px;
+}
+
+.dashboard-header p {
+    color: #555;
+    font-size: 1.1rem;
+}
+
+/* THE INTERACTIVE MENU GRID */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 40px;
+    gap: 30px;
+    margin-top: 50px;
 }
 
-/* INTERACTIVE BUTTONS (CARDS) */
+/* INTERACTIVE MENU CARDS */
 .menu-card {
     background: white;
     height: 220px;
@@ -83,18 +88,20 @@ body {
     text-decoration: none;
     border-radius: 20px;
     font-weight: bold;
-    font-size: 1.4rem;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy feel */
+    font-size: 1.5rem;
+    /* Smooth, "springy" animation on hover */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border: 2px solid transparent;
 }
 
-/* Hover: Lifts and Glows */
+/* Card Hover Aesthetic: It lifts and glows */
 .menu-card:hover {
     transform: translateY(-15px) scale(1.05);
     box-shadow: 0 15px 30px rgba(46, 125, 50, 0.2);
 }
 
-/* Button Theming */
+/* Specific Button Themes */
 .menu-card.yellow { 
     background: #fff9c4; 
     color: var(--oltc-dark);
@@ -116,9 +123,19 @@ body {
 .menu-card:hover .icon {
     transform: rotate(10deg) scale(1.2);
 }
-/* Specific styling for Cash Advance if you want a unique shade */
-.menu-card.dark-green {
-    background: #a5d6a7; 
-    color: #1b5e20;
-    border-bottom: 5px solid #1b5e20; 
+
+/* Navbar used for internal pages */
+.navbar {
+    background: var(--oltc-green);
+    color: white;
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logout {
+    color: var(--oltc-yellow);
+    text-decoration: none;
+    font-weight: bold;
 }
