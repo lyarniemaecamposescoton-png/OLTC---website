@@ -3,106 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OLTC Tracking System</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f4f7f6; }
-        .container { max-width: 900px; margin: auto; padding: 20px; }
-        .hidden { display: none; }
-        
-        /* Login Styles */
-        #login-section { text-align: center; margin-top: 100px; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        input { padding: 10px; margin: 10px; width: 250px; border: 1px solid #ddd; border-radius: 4px; }
-        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
-
-        /* Dashboard Styles */
-        header { background: #004085; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; }
-        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; }
-        .menu-btn { padding: 40px; font-size: 1.2rem; font-weight: bold; color: white; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
-        .btn-medical { background: #28a745; }
-        .btn-nbi { background: #ffc107; color: #333; }
-        .btn-cojibas { background: #17a2b8; }
-        .menu-btn:hover { transform: scale(1.05); }
-
-        /* Table Styles */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #004085; color: white; }
-        .back-btn { margin-top: 20px; background: #6c757d; }
-    </style>
+    <title>OLTC Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav class="navbar">
+        <h2>OLTC Admin</h2>
+        <a href="login.html" class="logout">Logout</a>
+    </nav>
 
-<div class="container">
-    <div id="login-section">
-        <h1>Ormoc Liner Transport Cooperative</h1>
-        <h3>Admin Login</h3>
-        <input type="text" id="username" placeholder="Username"><br>
-        <input type="password" id="password" placeholder="Password"><br>
-        <button onclick="login()">Login</button>
-    </div>
-
-    <div id="dashboard" class="hidden">
-        <header>
-            <h1>OLTC Dashboard</h1>
-            <p>Driver Tracking & Monitoring System</p>
+    <div class="container">
+        <header class="dashboard-header">
+            <h1>Driver Monitoring System</h1>
+            <p>Select a category to view tracking tables</p>
         </header>
+
         <div class="menu-grid">
-            <button class="menu-btn btn-medical" onclick="showTable('Medical Checkups')">Medical</button>
-            <button class="menu-btn btn-nbi" onclick="showTable('NBI Renewal')">NBI Renewal</button>
-            <button class="menu-btn btn-cojibas" onclick="showTable('Cojibas')">Cojibas</button>
+            <a href="medical.html" class="menu-card yellow">
+                <span>Medical</span>
+            </a>
+            <a href="nbi.html" class="menu-card green">
+                <span>NBI Renewal</span>
+            </a>
+            <a href="cojibas.html" class="menu-card yellow">
+                <span>Cojibas</span>
+            </a>
         </div>
     </div>
-
-    <div id="table-section" class="hidden">
-        <h2 id="table-title">Category</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Department</th>
-                    <th>Plate Number</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                </tbody>
-        </table>
-        <button class="back-btn" onclick="showDashboard()">Back to Dashboard</button>
-    </div>
-</div>
-
-<script>
-    function login() {
-        // Simple bypass for demo - in reality, you'd use a real auth system
-        document.getElementById('login-section').classList.add('hidden');
-        document.getElementById('dashboard').classList.remove('hidden');
-    }
-
-    function showTable(category) {
-        document.getElementById('dashboard').classList.add('hidden');
-        document.getElementById('table-section').classList.remove('hidden');
-        document.getElementById('table-title').innerText = category + " Records";
-        
-        // Sample Data Entry
-        const tableBody = document.getElementById('table-body');
-        tableBody.innerHTML = `
-            <tr>
-                <td>Juan Dela Cruz</td>
-                <td>2024-03-01</td>
-                <td>Operations</td>
-                <td>ABC-1234</td>
-                <td>₱500.00</td>
-            </tr>
-        `;
-    }
-
-    function showDashboard() {
-        document.getElementById('table-section').classList.add('hidden');
-        document.getElementById('dashboard').classList.remove('hidden');
-    }
-</script>
-
 </body>
 </html>
