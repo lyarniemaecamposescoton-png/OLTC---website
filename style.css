@@ -1,4 +1,4 @@
-/* Color Palette - Defined for consistency across the whole site */
+/* 1. BRAND COLORS & BASE */
 :root {
     --oltc-green: #2e7d32;
     --oltc-yellow: #fdd835;
@@ -6,16 +6,14 @@
     --white: #ffffff;
 }
 
-/* Base Styles - Sets the font and removes extra spacing */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     background-color: #f4f7f6;
 }
 
-/* Login Page Background - This creates the Green to Yellow Gradient */
+/* 2. LOGIN PAGE DESIGN */
 .login-page {
-    /* The !important tag forces this color to appear even if the browser tries to hide it */
     background: linear-gradient(135deg, var(--oltc-green) 0%, var(--oltc-yellow) 100%) !important;
     height: 100vh;
     display: flex;
@@ -23,7 +21,6 @@ body {
     justify-content: center;
 }
 
-/* The White Login Card - The centered box for the login form */
 .login-card {
     background: white;
     padding: 2.5rem;
@@ -31,61 +28,23 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     text-align: center;
     width: 380px;
-    max-width: 90%;
 }
 
-/* LOGO FIX - This prevents the logo from taking over the whole screen */
+/* Fix for the oversized logo */
 .logo {
     display: block !important;
-    margin: 0 auto 20px !important; /* Centers the logo and adds space below it */
-    width: 120px !important;        /* Keeps the width small */
-    height: 120px !important;       /* Keeps the height small */
-    object-fit: contain !important; /* Ensures the JPG is not squished or stretched */
-    border-radius: 8px;             /* Adds a slight curve to the logo edges */
+    margin: 0 auto 20px !important;
+    width: 120px !important;
+    height: 120px !important;
+    object-fit: contain !important;
 }
 
-/* Text inside the login card */
-.login-card h1 {
-    margin: 10px 0 5px 0;
-    color: var(--oltc-dark);
+/* 3. DASHBOARD DESIGN */
+.dashboard-page {
+    background: linear-gradient(135deg, #f4f7f6 0%, #dcedc8 100%) !important;
+    min-height: 100vh;
 }
 
-.login-card p {
-    margin-bottom: 25px;
-    color: #666;
-    font-size: 0.9rem;
-}
-
-/* Inputs - This forces Username and Password to stack vertically */
-input {
-    width: 100%;             /* Makes the input fill the width of the card */
-    padding: 12px;
-    margin: 10px 0;          /* Adds space between the boxes */
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;  /* Ensures the padding doesn't push the box out of the card */
-}
-
-/* Login Button Styling */
-.btn-login {
-    background: var(--oltc-green);
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    font-weight: bold;
-    font-size: 1rem;
-    margin-top: 10px;
-    transition: background 0.3s;
-}
-
-.btn-login:hover {
-    background: var(--oltc-dark);
-}
-
-/* Navbar - Used for the internal pages like Dashboard or Medical Tracking */
 .navbar {
     background: var(--oltc-green);
     color: white;
@@ -95,14 +54,6 @@ input {
     align-items: center;
 }
 
-.logout {
-    color: var(--oltc-yellow);
-    text-decoration: none;
-    font-weight: bold;
-}
-/* --- DASHBOARD STYLES (Add these to the end) --- */
-
-/* Centers the dashboard on the screen */
 .container {
     max-width: 1000px;
     margin: 50px auto;
@@ -110,7 +61,7 @@ input {
     text-align: center;
 }
 
-/* Creates the interactive 3-column grid */
+/* The Interactive Grid */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -118,33 +69,47 @@ input {
     margin-top: 40px;
 }
 
-/* Turns your links into large, professional cards */
+/* INTERACTIVE BUTTONS (CARDS) */
 .menu-card {
-    height: 200px;
+    background: white;
+    height: 220px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    border-radius: 15px;
+    border-radius: 20px;
     font-weight: bold;
     font-size: 1.4rem;
-    transition: all 0.3s ease; /* Smooth hover animation */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy feel */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
-/* Card Colors */
-.menu-card.yellow { background-color: var(--oltc-yellow); color: var(--oltc-dark); }
-.menu-card.green { background-color: var(--oltc-green); color: white; }
-
-/* Interactive Hover: Card lifts up when you point at it */
+/* Hover: Lifts and Glows */
 .menu-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(46, 125, 50, 0.2);
 }
 
-/* Emoji Icon Size */
+/* Button Theming */
+.menu-card.yellow { 
+    background: #fff9c4; 
+    color: var(--oltc-dark);
+    border-bottom: 5px solid var(--oltc-yellow); 
+}
+.menu-card.green { 
+    background: #c8e6c9; 
+    color: var(--oltc-dark);
+    border-bottom: 5px solid var(--oltc-green); 
+}
+
+/* Icon Animation */
 .icon {
-    font-size: 3.5rem;
-    margin-bottom: 10px;
+    font-size: 4rem;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.menu-card:hover .icon {
+    transform: rotate(10deg) scale(1.2);
 }
