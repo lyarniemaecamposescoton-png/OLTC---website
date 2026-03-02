@@ -1,4 +1,4 @@
-/* Color Palette */
+/* Color Palette - Defined for consistency across the whole site */
 :root {
     --oltc-green: #2e7d32;
     --oltc-yellow: #fdd835;
@@ -6,15 +6,16 @@
     --white: #ffffff;
 }
 
-/* Base Styles */
+/* Base Styles - Sets the font and removes extra spacing */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     background-color: #f4f7f6;
 }
 
-/* Login Page Background - Green to Yellow Gradient */
+/* Login Page Background - This creates the Green to Yellow Gradient */
 .login-page {
+    /* The !important tag forces this color to appear even if the browser tries to hide it */
     background: linear-gradient(135deg, var(--oltc-green) 0%, var(--oltc-yellow) 100%) !important;
     height: 100vh;
     display: flex;
@@ -22,7 +23,7 @@ body {
     justify-content: center;
 }
 
-/* The White Login Box */
+/* The White Login Card - The centered box for the login form */
 .login-card {
     background: white;
     padding: 2.5rem;
@@ -33,17 +34,17 @@ body {
     max-width: 90%;
 }
 
-/* PROPER LOGO PLACEMENT & SIZE */
+/* LOGO FIX - This prevents the logo from taking over the whole screen */
 .logo {
     display: block !important;
-    margin: 0 auto 20px !important; /* Centers the logo and adds space below */
-    width: 120px !important;        /* Fixed width so it doesn't grow too large */
-    height: 120px !important;       /* Fixed height */
-    object-fit: contain !important; /* Ensures the whole logo is visible without stretching */
-    border-radius: 8px;             /* Optional: slightly rounds the corners of the JPG */
+    margin: 0 auto 20px !important; /* Centers the logo and adds space below it */
+    width: 120px !important;        /* Keeps the width small */
+    height: 120px !important;       /* Keeps the height small */
+    object-fit: contain !important; /* Ensures the JPG is not squished or stretched */
+    border-radius: 8px;             /* Adds a slight curve to the logo edges */
 }
 
-/* Form Styling */
+/* Text inside the login card */
 .login-card h1 {
     margin: 10px 0 5px 0;
     color: var(--oltc-dark);
@@ -55,15 +56,17 @@ body {
     font-size: 0.9rem;
 }
 
+/* Inputs - This forces Username and Password to stack vertically */
 input {
-    width: 100%;
+    width: 100%;             /* Makes the input fill the width of the card */
     padding: 12px;
-    margin: 10px 0;
+    margin: 10px 0;          /* Adds space between the boxes */
     border: 1px solid #ddd;
     border-radius: 5px;
-    box-sizing: border-box; /* Prevents input from sliding out of the box */
+    box-sizing: border-box;  /* Ensures the padding doesn't push the box out of the card */
 }
 
+/* Login Button Styling */
 .btn-login {
     background: var(--oltc-green);
     color: white;
@@ -82,7 +85,7 @@ input {
     background: var(--oltc-dark);
 }
 
-/* Navbar for Internal Pages */
+/* Navbar - Used for the internal pages like Dashboard or Medical Tracking */
 .navbar {
     background: var(--oltc-green);
     color: white;
