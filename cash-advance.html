@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Advance Tracking - OLTC</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-page">
+
+    <nav class="navbar">
+        <h2>OLTC Admin</h2>
+        <div>
+            <a href="dashboard.html" class="logout" style="margin-right: 20px;">Dashboard</a>
+            <a href="login.html" class="logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 1200px;">
+        <header class="dashboard-header">
+            <h1>💵 Cash Advance Tracking</h1>
+            <p>Manage and monitor driver financial requests and balances.</p>
+        </header>
+
+        <div class="table-controls">
+            <input type="text" id="cashSearch" placeholder="Search Driver or Plate..." style="width: 300px; margin-bottom: 0;">
+            <button class="btn-login" style="width: auto; padding: 10px 25px;">+ New Request</button>
+        </div>
+
+        <div class="table-container">
+            <table class="medical-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Plate Number</th>
+                        <th>Department</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Juan Dela Cruz</td>
+                        <td><strong>ABC-1234</strong></td>
+                        <td>Logistics</td>
+                        <td>Oct 25, 2024</td>
+                        <td>₱2,500.00</td>
+                        <td><span class="status-badge green">Approved</span></td>
+                        <td><button class="edit-btn">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>Maria Santos</td>
+                        <td><strong>XYZ-5678</strong></td>
+                        <td>Operations</td>
+                        <td>Oct 24, 2024</td>
+                        <td>₱1,200.00</td>
+                        <td><span class="status-badge yellow">Pending</span></td>
+                        <td><button class="edit-btn">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
