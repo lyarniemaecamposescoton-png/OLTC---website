@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cojibas Monitoring - OLTC</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-page">
+
+    <nav class="navbar">
+        <h2>OLTC Admin</h2>
+        <div>
+            <a href="dashboard.html" class="logout" style="margin-right: 20px;">Dashboard</a>
+            <a href="login.html" class="logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 1200px;">
+        <header class="dashboard-header">
+            <h1>🚛 Cojibas Monitoring</h1>
+            <p>Real-time tracking of truck deployments and delivery progress.</p>
+        </header>
+
+        <div class="table-controls">
+            <input type="text" id="truckSearch" placeholder="Search Plate No. or Driver..." style="width: 300px; margin-bottom: 0;">
+            <button class="btn-login" style="width: auto; padding: 10px 25px;">+ Assign New Trip</button>
+        </div>
+
+        <div class="table-container">
+            <table class="medical-table">
+                <thead>
+                    <tr>
+                        <th>Plate Number</th>
+                        <th>Driver</th>
+                        <th>Current Route</th>
+                        <th>Status</th>
+                        <th>Last Updated</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ABC-1234</strong></td>
+                        <td>Juan Dela Cruz</td>
+                        <td>Manila ➔ Batangas</td>
+                        <td><span class="status-badge blue">In Transit</span></td>
+                        <td>2 mins ago</td>
+                        <td><button class="edit-btn">Update</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>XYZ-5678</strong></td>
+                        <td>Maria Santos</td>
+                        <td>Quezon City ➔ Pampanga</td>
+                        <td><span class="status-badge green">Delivered</span></td>
+                        <td>1 hour ago</td>
+                        <td><button class="edit-btn">Update</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>OLT-9999</strong></td>
+                        <td>Ricardo Reyes</td>
+                        <td>Maintenance</td>
+                        <td><span class="status-badge red">Offline</span></td>
+                        <td>Yesterday</td>
+                        <td><button class="edit-btn">Update</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
