@@ -1,26 +1,137 @@
-<div class="table-container">
-    <table class="medical-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Plate Number</th>
-                <th>Department</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Expiry Date</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Ricardo Reyes</td>
-                <td><strong>NQR-123</strong></td>
-                <td>Logistics</td>
-                <td>Mar 10, 2024</td>
-                <td><span class="status-badge green">Valid</span></td>
-                <td>Mar 10, 2025</td>
-                <td><button class="edit-btn">Edit</button></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBI Renewal - OLTC</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-page">
+
+    <nav class="navbar">
+        <h2>OLTC Admin</h2>
+        <div>
+            <a href="dashboard.html" class="logout" style="margin-right: 20px;">Dashboard</a>
+            <a href="login.html" class="logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 1200px;">
+        <header class="dashboard-header">
+            <h1>📄 NBI Clearance Renewal</h1>
+            <p>Monitor and update driver clearance validity for the office.</p>
+        </header>
+
+        <div class="table-controls">
+            <input type="text" id="nbiSearch" placeholder="Search Driver or Plate..." onkeyup="searchTable()">
+            <button class="btn-login" style="width: auto; padding: 10px 25px;" onclick="toggleForm()">+ Add New NBI Record</button>
+        </div>
+
+        <div id="addForm" style="display:none; background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: left;">
+            <h3 style="margin-top:0;">New NBI Clearance Detail</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                <input type="text" id="newName" placeholder="Driver Name">
+                <input type="text" id="newPlate" placeholder="Plate Number">
+                <input type="text" id="newDept" placeholder="Department">
+                <input type="date" id="newDate">
+                <select id="newStatus">
+                    <option value="green">Valid</option>
+                    <option value="yellow">Expiring Soon</option>
+                    <option value="red">Expired</option>
+                </select>
+                <input type="date" id="newExpiry">
+            </div>
+            <button class="btn-login" style="margin-top: 15px; width: 150px;" onclick="addRow()">Save Record</button>
+            <button class="edit-btn" style="margin-top: 15px;" onclick="toggleForm()">Cancel</button>
+        </div>
+
+        <div class="table-container">
+            <table class="medical-table" id="mainTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Plate Number</th>
+                        <th>Department</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Expiry Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // LOAD DATA FROM "nbiRecords" STORAGE
+        window.onload = function() { displayRecords(); };
+
+        function toggleForm() {
+            const form = document.getElementById('addForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function addRow() {
+            const record = {
+                name: document.getElementById('newName').value.toUpperCase(),
+                plate: document.getElementById('newPlate').value.toUpperCase(),
+                dept: document.getElementById('newDept').value,
+                date: document.getElementById('newDate').value,
+                status: document.getElementById('newStatus').value,
+                expiry: document.getElementById('newExpiry').value,
+                id: Date.now()
+            };
+
+            if(!record.name || !record.plate) { alert("Please enter Name and Plate"); return; }
+
+            // Uses a separate storage key so it doesn't mix with Medical
+            let records = JSON.parse(localStorage.getItem('nbiRecords')) || [];
+            records.push(record);
+            localStorage.setItem('nbiRecords', JSON.stringify(records));
+
+            displayRecords();
+            toggleForm();
+            document.getElementById('newName').value = '';
+            document.getElementById('newPlate').value = '';
+        }
+
+        function displayRecords() {
+            const tableBody = document.querySelector('#mainTable tbody');
+            tableBody.innerHTML = '';
+            let records = JSON.parse(localStorage.getItem('nbiRecords')) || [];
+
+            records.forEach(rec => {
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td>${rec.name}</td>
+                    <td><strong>${rec.plate}</strong></td>
+                    <td>${rec.dept}</td>
+                    <td>${rec.date}</td>
+                    <td><span class="status-badge ${rec.status}">${rec.status === 'green' ? 'Valid' : rec.status === 'yellow' ? 'Expiring' : 'Expired'}</span></td>
+                    <td>${rec.expiry}</td>
+                    <td><button class="edit-btn" style="border-color: red; color: red;" onclick="deleteRecord(${rec.id})">Delete</button></td>
+                `;
+            });
+        }
+
+        function deleteRecord(id) {
+            if(confirm("Are you sure?")) {
+                let records = JSON.parse(localStorage.getItem('nbiRecords')) || [];
+                records = records.filter(r => r.id !== id);
+                localStorage.setItem('nbiRecords', JSON.stringify(records));
+                displayRecords();
+            }
+        }
+
+        function searchTable() {
+            let input = document.getElementById("nbiSearch").value.toLowerCase();
+            let rows = document.querySelectorAll("#mainTable tbody tr");
+            rows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(input) ? "" : "none";
+            });
+        }
+    </script>
+</body>
+</html>
