@@ -43,11 +43,9 @@ body {
 
 /* 3. DASHBOARD DESIGN */
 .dashboard-page {
-    /* Matches the login page gradient exactly */
-    background: linear-gradient(135deg, var(--oltc-green) 0%, var(--oltc-yellow) 100%) !important;
+    background-color: #f4f7f6 !important; /* A soft, professional off-white/grey */
     min-height: 100vh;
     margin: 0;
-    background-attachment: fixed; /* Keeps the gradient still while you scroll */
 }
 
 /* Base dashboard container and header styles */
