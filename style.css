@@ -43,7 +43,7 @@ body {
 
 /* 3. DASHBOARD DESIGN */
 .dashboard-page {
-    background-color: #f4f7f6 !important; /* A soft, professional off-white/grey */
+    background-color: #ffffff !important; /* Pure white background */
     min-height: 100vh;
     margin: 0;
 }
