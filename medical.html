@@ -19,7 +19,7 @@
     <div class="container" style="max-width: 1200px;">
         <header class="dashboard-header">
             <h1>🏥 Medical Monitoring</h1>
-            <p>Enter driver details below. They will be saved to this computer.</p>
+            <p>Manage driver medical records with full edit and delete control.</p>
         </header>
 
         <div class="table-controls">
@@ -28,8 +28,8 @@
         </div>
 
         <div id="addForm" style="display:none; background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: left;">
-            <h3 style="margin-top:0;">Add New Driver Detail</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+            <h3 id="formTitle">Add New Driver Detail</h3>
+            <input type="hidden" id="editId"> <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
                 <input type="text" id="newName" placeholder="Driver Name">
                 <input type="text" id="newPlate" placeholder="Plate Number">
                 <input type="text" id="newDept" placeholder="Department">
@@ -41,7 +41,7 @@
                 </select>
                 <input type="date" id="newExpiry">
             </div>
-            <button class="btn-login" style="margin-top: 15px; width: 150px;" onclick="addRow()">Save Record</button>
+            <button class="btn-login" style="margin-top: 15px; width: 150px;" onclick="saveRecord()">Save Record</button>
             <button class="edit-btn" style="margin-top: 15px;" onclick="toggleForm()">Cancel</button>
         </div>
 
@@ -58,22 +58,24 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tableBody">
                     </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        // LOAD SAVED DATA
+        // Load existing records when the page opens
         window.onload = function() { displayRecords(); };
 
         function toggleForm() {
             const form = document.getElementById('addForm');
             form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            if(form.style.display === 'none') clearInputs();
         }
 
-        function addRow() {
+        function saveRecord() {
+            const id = document.getElementById('editId').value;
             const record = {
                 name: document.getElementById('newName').value.toUpperCase(),
                 plate: document.getElementById('newPlate').value.toUpperCase(),
@@ -81,23 +83,32 @@
                 date: document.getElementById('newDate').value,
                 status: document.getElementById('newStatus').value,
                 expiry: document.getElementById('newExpiry').value,
-                id: Date.now()
+                id: id ? parseInt(id) : Date.now()
             };
 
-            if(!record.name || !record.plate) { alert("Please enter Name and Plate"); return; }
+            if(!record.name || !record.plate) { 
+                alert("Please enter at least the Name and Plate Number."); 
+                return; 
+            }
 
             let records = JSON.parse(localStorage.getItem('medicalRecords')) || [];
-            records.push(record);
-            localStorage.setItem('medicalRecords', JSON.stringify(records));
 
+            if(id) {
+                // Update existing record
+                const index = records.findIndex(r => r.id === parseInt(id));
+                records[index] = record;
+            } else {
+                // Add new record
+                records.push(record);
+            }
+
+            localStorage.setItem('medicalRecords', JSON.stringify(records));
             displayRecords();
             toggleForm();
-            document.getElementById('newName').value = '';
-            document.getElementById('newPlate').value = '';
         }
 
         function displayRecords() {
-            const tableBody = document.querySelector('#mainTable tbody');
+            const tableBody = document.getElementById('tableBody');
             tableBody.innerHTML = '';
             let records = JSON.parse(localStorage.getItem('medicalRecords')) || [];
 
@@ -110,18 +121,47 @@
                     <td>${rec.date}</td>
                     <td><span class="status-badge ${rec.status}">${rec.status === 'green' ? 'Fit' : rec.status === 'yellow' ? 'Pending' : 'Expired'}</span></td>
                     <td>${rec.expiry}</td>
-                    <td><button class="edit-btn" style="border-color: red; color: red;" onclick="deleteRecord(${rec.id})">Delete</button></td>
+                    <td>
+                        <button class="edit-btn" onclick="editRecord(${rec.id})">Edit</button>
+                        <button class="edit-btn" style="border-color: #ff4d4d; color: #ff4d4d;" onclick="deleteRecord(${rec.id})">Delete</button>
+                    </td>
                 `;
             });
         }
 
+        function editRecord(id) {
+            let records = JSON.parse(localStorage.getItem('medicalRecords')) || [];
+            const rec = records.find(r => r.id === id);
+
+            document.getElementById('newName').value = rec.name;
+            document.getElementById('newPlate').value = rec.plate;
+            document.getElementById('newDept').value = rec.dept;
+            document.getElementById('newDate').value = rec.date;
+            document.getElementById('newStatus').value = rec.status;
+            document.getElementById('newExpiry').value = rec.expiry;
+            document.getElementById('editId').value = rec.id;
+
+            document.getElementById('formTitle').innerText = "Edit Driver Detail";
+            toggleForm();
+        }
+
         function deleteRecord(id) {
-            if(confirm("Are you sure?")) {
+            if(confirm("Are you sure you want to permanently delete this record?")) {
                 let records = JSON.parse(localStorage.getItem('medicalRecords')) || [];
                 records = records.filter(r => r.id !== id);
                 localStorage.setItem('medicalRecords', JSON.stringify(records));
                 displayRecords();
             }
+        }
+
+        function clearInputs() {
+            document.getElementById('editId').value = '';
+            document.getElementById('newName').value = '';
+            document.getElementById('newPlate').value = '';
+            document.getElementById('newDept').value = '';
+            document.getElementById('newDate').value = '';
+            document.getElementById('newExpiry').value = '';
+            document.getElementById('formTitle').innerText = "Add New Driver Detail";
         }
 
         function searchTable() {
