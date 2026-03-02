@@ -207,3 +207,19 @@ body {
     background: #ffebee; 
     color: #c62828; 
 }
+/* Specific for Logistics/Cojibas Monitoring */
+.status-badge.blue { 
+    background: #e3f2fd; 
+    color: #1976d2; 
+}
+
+.status-badge.red { 
+    background: #ffebee; 
+    color: #c62828; 
+}
+
+/* Make plate numbers stand out */
+.medical-table td strong {
+    color: var(--oltc-dark);
+    letter-spacing: 1px;
+}
