@@ -1,60 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBI Renewal Tracking - OLTC</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="dashboard-page">
-
-    <nav class="navbar">
-        <h2>OLTC Admin</h2>
-        <div>
-            <a href="dashboard.html" class="logout" style="margin-right: 20px;">Dashboard</a>
-            <a href="login.html" class="logout">Logout</a>
-        </div>
-    </nav>
-
-    <div class="container" style="max-width: 1100px;">
-        <header class="dashboard-header">
-            <h1>📄 NBI Clearance Renewal</h1>
-            <p>Monitor driver clearance validity and renewal schedules.</p>
-        </header>
-
-        <div class="table-controls">
-            <input type="text" id="nbiSearch" placeholder="Search Driver..." style="width: 300px; margin-bottom: 0;">
-            <button class="btn-login" style="width: auto; padding: 10px 25px;">+ Update Clearance</button>
-        </div>
-
-        <div class="table-container">
-            <table class="medical-table"> <thead>
-                    <tr>
-                        <th>Driver Name</th>
-                        <th>Date Issued</th>
-                        <th>Status</th>
-                        <th>Expiry Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ricardo Reyes</td>
-                        <td>March 10, 2024</td>
-                        <td><span class="status-badge green">Valid</span></td>
-                        <td>March 10, 2025</td>
-                        <td><button class="edit-btn">Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td>Elena Dimaculangan</td>
-                        <td>Feb 20, 2024</td>
-                        <td><span class="status-badge red">Expiring Soon</span></td>
-                        <td>May 20, 2024</td>
-                        <td><button class="edit-btn">Edit</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</body>
-</html>
+<div class="table-container">
+    <table class="medical-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Plate Number</th>
+                <th>Department</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Expiry Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ricardo Reyes</td>
+                <td><strong>NQR-123</strong></td>
+                <td>Logistics</td>
+                <td>Mar 10, 2024</td>
+                <td><span class="status-badge green">Valid</span></td>
+                <td>Mar 10, 2025</td>
+                <td><button class="edit-btn">Edit</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
