@@ -19,7 +19,7 @@
     <div class="container" style="max-width: 1200px;">
         <header class="dashboard-header">
             <h1>📄 NBI Clearance Renewal</h1>
-            <p>Monitor and update driver clearance validity for the office.</p>
+            <p>Monitor and update driver clearance validity and renewal schedules.</p>
         </header>
 
         <div class="table-controls">
@@ -28,20 +28,22 @@
         </div>
 
         <div id="addForm" style="display:none; background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: left;">
-            <h3 style="margin-top:0;">New NBI Clearance Detail</h3>
+            <h3 id="formTitle">Add New NBI Detail</h3>
+            <input type="hidden" id="editId">
+            
             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
                 <input type="text" id="newName" placeholder="Driver Name">
                 <input type="text" id="newPlate" placeholder="Plate Number">
                 <input type="text" id="newDept" placeholder="Department">
-                <input type="date" id="newDate">
+                <input type="date" id="newDate" title="Issuance Date">
                 <select id="newStatus">
                     <option value="green">Valid</option>
                     <option value="yellow">Expiring Soon</option>
-                    <option value="red">Expired</option>
+                    <option value="red">Expired / No Record</option>
                 </select>
-                <input type="date" id="newExpiry">
+                <input type="date" id="newExpiry" title="Expiration Date">
             </div>
-            <button class="btn-login" style="margin-top: 15px; width: 150px;" onclick="addRow()">Save Record</button>
+            <button class="btn-login" style="margin-top: 15px; width: 150px;" onclick="saveRecord()">Save Record</button>
             <button class="edit-btn" style="margin-top: 15px;" onclick="toggleForm()">Cancel</button>
         </div>
 
@@ -58,22 +60,22 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    </tbody>
+                <tbody id="tableBody"></tbody>
             </table>
         </div>
     </div>
 
     <script>
-        // LOAD DATA FROM "nbiRecords" STORAGE
         window.onload = function() { displayRecords(); };
 
         function toggleForm() {
             const form = document.getElementById('addForm');
             form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            if(form.style.display === 'none') clearInputs();
         }
 
-        function addRow() {
+        function saveRecord() {
+            const id = document.getElementById('editId').value;
             const record = {
                 name: document.getElementById('newName').value.toUpperCase(),
                 plate: document.getElementById('newPlate').value.toUpperCase(),
@@ -81,24 +83,28 @@
                 date: document.getElementById('newDate').value,
                 status: document.getElementById('newStatus').value,
                 expiry: document.getElementById('newExpiry').value,
-                id: Date.now()
+                id: id ? parseInt(id) : Date.now()
             };
 
-            if(!record.name || !record.plate) { alert("Please enter Name and Plate"); return; }
+            if(!record.name || !record.plate) { alert("Please enter Name and Plate Number"); return; }
 
-            // Uses a separate storage key so it doesn't mix with Medical
+            // Uses "nbiRecords" key to separate data from Medical
             let records = JSON.parse(localStorage.getItem('nbiRecords')) || [];
-            records.push(record);
-            localStorage.setItem('nbiRecords', JSON.stringify(records));
 
+            if(id) {
+                const index = records.findIndex(r => r.id === parseInt(id));
+                records[index] = record;
+            } else {
+                records.push(record);
+            }
+
+            localStorage.setItem('nbiRecords', JSON.stringify(records));
             displayRecords();
             toggleForm();
-            document.getElementById('newName').value = '';
-            document.getElementById('newPlate').value = '';
         }
 
         function displayRecords() {
-            const tableBody = document.querySelector('#mainTable tbody');
+            const tableBody = document.getElementById('tableBody');
             tableBody.innerHTML = '';
             let records = JSON.parse(localStorage.getItem('nbiRecords')) || [];
 
@@ -111,18 +117,47 @@
                     <td>${rec.date}</td>
                     <td><span class="status-badge ${rec.status}">${rec.status === 'green' ? 'Valid' : rec.status === 'yellow' ? 'Expiring' : 'Expired'}</span></td>
                     <td>${rec.expiry}</td>
-                    <td><button class="edit-btn" style="border-color: red; color: red;" onclick="deleteRecord(${rec.id})">Delete</button></td>
+                    <td>
+                        <button class="edit-btn" onclick="editRecord(${rec.id})">Edit</button>
+                        <button class="edit-btn" style="border-color: #ff4d4d; color: #ff4d4d;" onclick="deleteRecord(${rec.id})">Delete</button>
+                    </td>
                 `;
             });
         }
 
+        function editRecord(id) {
+            let records = JSON.parse(localStorage.getItem('nbiRecords')) || [];
+            const rec = records.find(r => r.id === id);
+
+            document.getElementById('newName').value = rec.name;
+            document.getElementById('newPlate').value = rec.plate;
+            document.getElementById('newDept').value = rec.dept;
+            document.getElementById('newDate').value = rec.date;
+            document.getElementById('newStatus').value = rec.status;
+            document.getElementById('newExpiry').value = rec.expiry;
+            document.getElementById('editId').value = rec.id;
+
+            document.getElementById('formTitle').innerText = "Edit NBI Detail";
+            toggleForm();
+        }
+
         function deleteRecord(id) {
-            if(confirm("Are you sure?")) {
+            if(confirm("Are you sure you want to delete this NBI record?")) {
                 let records = JSON.parse(localStorage.getItem('nbiRecords')) || [];
                 records = records.filter(r => r.id !== id);
                 localStorage.setItem('nbiRecords', JSON.stringify(records));
                 displayRecords();
             }
+        }
+
+        function clearInputs() {
+            document.getElementById('editId').value = '';
+            document.getElementById('newName').value = '';
+            document.getElementById('newPlate').value = '';
+            document.getElementById('newDept').value = '';
+            document.getElementById('newDate').value = '';
+            document.getElementById('newExpiry').value = '';
+            document.getElementById('formTitle').innerText = "Add New NBI Detail";
         }
 
         function searchTable() {
