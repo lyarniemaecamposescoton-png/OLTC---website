@@ -1,12 +1,99 @@
-/* FINAL LOGO FIX - Keeps it small and centered */
+/* Color Palette */
+:root {
+    --oltc-green: #2e7d32;
+    --oltc-yellow: #fdd835;
+    --oltc-dark: #1b5e20;
+    --white: #ffffff;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f4f7f6;
+}
+
+/* Login Page Background - Green to Yellow Gradient */
+.login-page {
+    background: linear-gradient(135deg, var(--oltc-green) 0%, var(--oltc-yellow) 100%) !important;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The White Login Box */
+.login-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 380px;
+    max-width: 90%;
+}
+
+/* PROPER LOGO PLACEMENT & SIZE */
 .logo {
-    display: block;            /* Ensures it acts as a block element */
-    margin: 0 auto 15px;      /* Centers it and adds space below */
-    width: 120px !important;  /* Forces fixed width */
-    height: 120px !important; /* Forces fixed height */
-    max-width: 100%;          /* Prevents it from being wider than its container */
-    border-radius: 50%;       /* Makes it a perfect circle */
-    object-fit: cover;        /* Fills the circle without stretching */
-    border: 3px solid var(--oltc-yellow); 
-    background-color: white;   
+    display: block !important;
+    margin: 0 auto 20px !important; /* Centers the logo and adds space below */
+    width: 120px !important;        /* Fixed width so it doesn't grow too large */
+    height: 120px !important;       /* Fixed height */
+    object-fit: contain !important; /* Ensures the whole logo is visible without stretching */
+    border-radius: 8px;             /* Optional: slightly rounds the corners of the JPG */
+}
+
+/* Form Styling */
+.login-card h1 {
+    margin: 10px 0 5px 0;
+    color: var(--oltc-dark);
+}
+
+.login-card p {
+    margin-bottom: 25px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Prevents input from sliding out of the box */
+}
+
+.btn-login {
+    background: var(--oltc-green);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.btn-login:hover {
+    background: var(--oltc-dark);
+}
+
+/* Navbar for Internal Pages */
+.navbar {
+    background: var(--oltc-green);
+    color: white;
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logout {
+    color: var(--oltc-yellow);
+    text-decoration: none;
+    font-weight: bold;
 }
