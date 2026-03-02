@@ -1,38 +1,60 @@
-/* Logo Styling */
+/* Updated Logo Styling for logo.jpg */
 .logo {
-    width: 100px;
-    height: auto;
-    margin-bottom: 15px;
-    border-radius: 50%;
-    object-fit: contain;
+    display: block;            /* Ensures it acts as a block element */
+    margin: 0 auto 15px;      /* Centers it and adds space below */
+    width: 120px;             /* Fixed width */
+    height: 120px;            /* Fixed height to keep it square */
+    border-radius: 50%;       /* Makes it a perfect circle */
+    object-fit: cover;        /* Ensures the JPG fills the circle without stretching */
+    border: 3px solid var(--oltc-yellow); /* Adds a nice yellow border around the logo */
+    background-color: white;   /* Prevents transparency issues */
 }
 
-/* Table Specific Styles */
+/* Table Specific Styles - Clean & Professional */
 .table-container {
-    padding: 20px;
+    padding: 0;               /* Reset padding to allow header to touch edges */
     background: white;
-    margin-top: 20px;
+    margin: 20px auto;
+    max-width: 95%;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;         /* Clips the table corners to match the container */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    background-color: white;
 }
 
 th {
     background-color: var(--oltc-green);
-    color: white;
-    padding: 12px;
+    color: var(--oltc-yellow); /* Yellow text on green background */
+    padding: 15px;
     text-align: left;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
 }
 
 td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+/* Highlight every other row for better readability */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
 tr:hover {
-    background-color: #f1f8e9;
+    background-color: #f1f8e9; /* Light green highlight on hover */
+    cursor: default;
+}
+
+/* Style for the "Amount" column to make it stand out */
+td:last-child {
+    font-weight: bold;
+    color: var(--oltc-dark);
 }
