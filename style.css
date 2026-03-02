@@ -100,3 +100,51 @@ input {
     text-decoration: none;
     font-weight: bold;
 }
+/* --- DASHBOARD STYLES (Add these to the end) --- */
+
+/* Centers the dashboard on the screen */
+.container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Creates the interactive 3-column grid */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+/* Turns your links into large, professional cards */
+.menu-card {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 1.4rem;
+    transition: all 0.3s ease; /* Smooth hover animation */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Card Colors */
+.menu-card.yellow { background-color: var(--oltc-yellow); color: var(--oltc-dark); }
+.menu-card.green { background-color: var(--oltc-green); color: white; }
+
+/* Interactive Hover: Card lifts up when you point at it */
+.menu-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Emoji Icon Size */
+.icon {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+}
