@@ -223,3 +223,13 @@ body {
     color: var(--oltc-dark);
     letter-spacing: 1px;
 }
+/* Specific for Cash Advance Status */
+.status-badge.green { background: #e8f5e9; color: #2e7d32; } /* Approved */
+.status-badge.yellow { background: #fffde7; color: #f57f17; } /* Pending */
+.status-badge.red { background: #ffebee; color: #c62828; }    /* Declined/Overdue */
+
+/* Formatting the Amount column */
+.medical-table td:nth-child(5) {
+    font-weight: bold;
+    color: var(--oltc-dark);
+}
