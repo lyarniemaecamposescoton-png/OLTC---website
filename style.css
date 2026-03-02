@@ -202,3 +202,8 @@ body {
     text-decoration: none;
     font-weight: bold;
 }
+/* Specific for NBI/Critical Expirations */
+.status-badge.red { 
+    background: #ffebee; 
+    color: #c62828; 
+}
