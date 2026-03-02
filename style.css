@@ -131,7 +131,72 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+/* --- MEDICAL TABLE STYLES --- */
 
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    overflow-x: auto; /* Ensures it works on mobile */
+}
+
+.medical-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.medical-table th {
+    background-color: #f8f9fa;
+    color: var(--oltc-dark);
+    padding: 15px;
+    border-bottom: 2px solid #eee;
+}
+
+.medical-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #444;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.status-badge.green { background: #e8f5e9; color: #2e7d32; }
+.status-badge.yellow { background: #fffde7; color: #f57f17; }
+
+/* Edit Button */
+.edit-btn {
+    background: none;
+    border: 1px solid var(--oltc-green);
+    color: var(--oltc-green);
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.edit-btn:hover {
+    background: var(--oltc-green);
+    color: white;
+}
+
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+}
 .logout {
     color: var(--oltc-yellow);
     text-decoration: none;
