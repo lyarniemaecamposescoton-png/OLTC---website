@@ -19,50 +19,42 @@
     <div class="container" style="max-width: 1200px;">
         <header class="dashboard-header">
             <h1>🚛 Cojibas Monitoring</h1>
-            <p>Real-time tracking of truck deployments and delivery progress.</p>
+            <p>Tracking truck assignments and departmental expenses.</p>
         </header>
 
         <div class="table-controls">
-            <input type="text" id="truckSearch" placeholder="Search Plate No. or Driver..." style="width: 300px; margin-bottom: 0;">
-            <button class="btn-login" style="width: auto; padding: 10px 25px;">+ Assign New Trip</button>
+            <input type="text" id="cojibasSearch" placeholder="Search Plate or Name..." style="width: 300px; margin-bottom: 0;">
+            <button class="btn-login" style="width: auto; padding: 10px 25px;">+ Add Entry</button>
         </div>
 
         <div class="table-container">
             <table class="medical-table">
                 <thead>
                     <tr>
+                        <th>Name</th>
                         <th>Plate Number</th>
-                        <th>Driver</th>
-                        <th>Current Route</th>
-                        <th>Status</th>
-                        <th>Last Updated</th>
+                        <th>Date</th>
+                        <th>Department</th>
+                        <th>Amount</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>ABC-1234</strong></td>
                         <td>Juan Dela Cruz</td>
-                        <td>Manila ➔ Batangas</td>
-                        <td><span class="status-badge blue">In Transit</span></td>
-                        <td>2 mins ago</td>
-                        <td><button class="edit-btn">Update</button></td>
+                        <td><strong>ABC-1234</strong></td>
+                        <td>Oct 24, 2024</td>
+                        <td>Logistics</td>
+                        <td>₱5,000.00</td>
+                        <td><button class="edit-btn">Edit</button></td>
                     </tr>
                     <tr>
-                        <td><strong>XYZ-5678</strong></td>
                         <td>Maria Santos</td>
-                        <td>Quezon City ➔ Pampanga</td>
-                        <td><span class="status-badge green">Delivered</span></td>
-                        <td>1 hour ago</td>
-                        <td><button class="edit-btn">Update</button></td>
-                    </tr>
-                    <tr>
-                        <td><strong>OLT-9999</strong></td>
-                        <td>Ricardo Reyes</td>
-                        <td>Maintenance</td>
-                        <td><span class="status-badge red">Offline</span></td>
-                        <td>Yesterday</td>
-                        <td><button class="edit-btn">Update</button></td>
+                        <td><strong>XYZ-5678</strong></td>
+                        <td>Oct 23, 2024</td>
+                        <td>Operations</td>
+                        <td>₱3,200.00</td>
+                        <td><button class="edit-btn">Edit</button></td>
                     </tr>
                 </tbody>
             </table>
