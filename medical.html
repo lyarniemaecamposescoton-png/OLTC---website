@@ -1,113 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Tracking - OLTC</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="dashboard-page">
+<script>
+    // 1. LOAD DATA WHEN PAGE OPENS
+    window.onload = function() {
+        displayRecords();
+    };
 
-    <nav class="navbar">
-        <h2>OLTC Admin</h2>
-        <div>
-            <a href="dashboard.html" class="logout" style="margin-right: 20px;">Dashboard</a>
-            <a href="login.html" class="logout">Logout</a>
-        </div>
-    </nav>
+    function toggleForm() {
+        const form = document.getElementById('addForm');
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
 
-    <div class="container" style="max-width: 1200px;">
-        <header class="dashboard-header">
-            <h1>🏥 Medical Monitoring</h1>
-            <p>Manage driver records without touching the code.</p>
-        </header>
+    // 2. SAVE TO STORAGE AND ADD TO TABLE
+    function addRow() {
+        const record = {
+            name: document.getElementById('newName').value.toUpperCase(),
+            plate: document.getElementById('newPlate').value.toUpperCase(),
+            dept: document.getElementById('newDept').value,
+            date: document.getElementById('newDate').value,
+            status: document.getElementById('newStatus').value,
+            expiry: document.getElementById('newExpiry').value,
+            id: Date.now() // Unique ID for deleting
+        };
 
-        <div class="table-controls">
-            <input type="text" id="medicalSearch" placeholder="Search Driver or Plate..." style="width: 300px; margin-bottom: 0;">
-            <button class="btn-login" style="width: auto; padding: 10px 25px;" onclick="toggleForm()">+ Add New Record</button>
-        </div>
+        if(!record.name || !record.plate) { alert("Please enter Name and Plate"); return; }
 
-        <div id="addForm" style="display:none; background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: left;">
-            <h3>Add New Driver Detail</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
-                <input type="text" id="newName" placeholder="Full Name">
-                <input type="text" id="newPlate" placeholder="Plate Number">
-                <input type="text" id="newDept" placeholder="Department">
-                <input type="date" id="newDate">
-                <select id="newStatus">
-                    <option value="green">Fit to Work</option>
-                    <option value="yellow">Pending</option>
-                    <option value="red">Expired</option>
-                </select>
-                <input type="date" id="newExpiry">
-            </div>
-            <button class="btn-login" style="margin-top: 15px; width: 150px;" onclick="addRow()">Save Record</button>
-            <button class="edit-btn" style="margin-top: 15px;" onclick="toggleForm()">Cancel</button>
-        </div>
+        // Get existing records from storage or start new list
+        let records = JSON.parse(localStorage.getItem('medicalRecords')) || [];
+        records.push(record);
+        
+        // Save back to storage
+        localStorage.setItem('medicalRecords', JSON.stringify(records));
 
-        <div class="table-container">
-            <table class="medical-table" id="mainTable">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Plate Number</th>
-                        <th>Department</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Expiry Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    </tbody>
-            </table>
-        </div>
-    </div>
+        displayRecords();
+        toggleForm();
+        
+        // Clear inputs
+        document.getElementById('newName').value = '';
+        document.getElementById('newPlate').value = '';
+    }
 
-    <script>
-        // SHOW/HIDE FORM
-        function toggleForm() {
-            const form = document.getElementById('addForm');
-            form.style.display = form.style.display === 'none' ? 'block' : 'none';
-        }
+    // 3. DISPLAY ALL SAVED RECORDS
+    function displayRecords() {
+        const tableBody = document.querySelector('#mainTable tbody');
+        tableBody.innerHTML = ''; // Clear current table
+        
+        let records = JSON.parse(localStorage.getItem('medicalRecords')) || [];
 
-        // ADD NEW ROW TO TABLE
-        function addRow() {
-            const name = document.getElementById('newName').value;
-            const plate = document.getElementById('newPlate').value;
-            const dept = document.getElementById('newDept').value;
-            const date = document.getElementById('newDate').value;
-            const status = document.getElementById('newStatus').value;
-            const expiry = document.getElementById('newExpiry').value;
-
-            if(!name || !plate) { alert("Please enter at least Name and Plate"); return; }
-
-            const table = document.getElementById('mainTable').getElementsByTagName('tbody')[0];
-            const newRow = table.insertRow();
-
+        records.forEach(rec => {
+            const newRow = tableBody.insertRow();
             newRow.innerHTML = `
-                <td>${name.toUpperCase()}</td>
-                <td><strong>${plate.toUpperCase()}</strong></td>
-                <td>${dept}</td>
-                <td>${date}</td>
-                <td><span class="status-badge ${status}">${status === 'green' ? 'Fit' : status === 'yellow' ? 'Pending' : 'Expired'}</span></td>
-                <td>${expiry}</td>
-                <td><button class="edit-btn" style="border-color: red; color: red;" onclick="deleteRow(this)">Delete</button></td>
+                <td>${rec.name}</td>
+                <td><strong>${rec.plate}</strong></td>
+                <td>${rec.dept}</td>
+                <td>${rec.date}</td>
+                <td><span class="status-badge ${rec.status}">${rec.status === 'green' ? 'Fit' : rec.status === 'yellow' ? 'Pending' : 'Expired'}</span></td>
+                <td>${rec.expiry}</td>
+                <td><button class="edit-btn" style="border-color: red; color: red;" onclick="deleteRecord(${rec.id})">Delete</button></td>
             `;
+        });
+    }
 
-            toggleForm(); // Hide form after saving
-            // Clear inputs
-            document.getElementById('newName').value = '';
-            document.getElementById('newPlate').value = '';
+    // 4. DELETE FROM STORAGE
+    function deleteRecord(id) {
+        if(confirm("Are you sure?")) {
+            let records = JSON.parse(localStorage.getItem('medicalRecords')) || [];
+            records = records.filter(r => r.id !== id);
+            localStorage.setItem('medicalRecords', JSON.stringify(records));
+            displayRecords();
         }
-
-        // DELETE ROW
-        function deleteRow(btn) {
-            if(confirm("Are you sure you want to delete this driver?")) {
-                const row = btn.parentNode.parentNode;
-                row.parentNode.removeChild(row);
-            }
-        }
-    </script>
-</body>
-</html>
+    }
+</script>
